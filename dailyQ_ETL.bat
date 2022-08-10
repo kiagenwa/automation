@@ -1,0 +1,1 @@
+python "C:\Users\KH1000\Documents\proj\Power BI - Omni\scripts\dailyQ_ETL.py"
