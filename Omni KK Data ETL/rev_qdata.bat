@@ -1,1 +1,1 @@
-python "C:\Users\KH1000\Documents\proj\Power BI - Omni\scripts\rev_qdata.py" "OMNI RC305 Production daily report WK2233.5.xlsx" "RC305" "2233.1"
+python "C:\Users\KH1000\Documents\proj\Power BI - Omni\scripts\rev_qdata.py" "OMNI RC305 Production daily report WK2236.1.xlsx" "RC305" "2235.6" "2236.1"
