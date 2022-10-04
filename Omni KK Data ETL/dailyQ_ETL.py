@@ -23,7 +23,9 @@ for file in ETL_files:
         xlsx.active = xlsx.sheetnames.index(sheet)
         asheet = xlsx.active
         icolumn = dQ.locate_data(asheet)
-        if (icolumn < 5) or (dateID > dQ.get_dateID(asheet, icolumn, cursor)):
+        if icolumn == 'NDAT' or icolumn < 4:
+            continue
+        if (dateID > dQ.get_dateID(asheet, icolumn, cursor)):
             continue
         icolumn_letter = openpyxl.utils.cell.get_column_letter(icolumn)
         dcolumn = asheet[icolumn_letter]

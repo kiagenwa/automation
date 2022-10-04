@@ -27,13 +27,14 @@ def model_ID(model_abbr):
     switch={
         "RC153":5,
         "RC265-04B":1,
-        "RC305":4
+        "RC305":4,
+        "RC2655102-02B":2
     }
     return switch.get(model_abbr, "AA")
 
 def production_type(sheetname, modelID):
     """returns pdtype ID with sheet name"""
-    if re.search(r"main",sheetname.lower()) or (re.search(r'smt|smd',sheetname.lower()) and modelID == 1):
+    if re.search(r"main",sheetname.lower()) or (re.search(r'smt|smd',sheetname.lower()) and modelID < 3):
         return 4
     matched = re.search(r'smt|smd|ws|assembly|wave',sheetname.lower())
     switch={
@@ -52,9 +53,11 @@ def locate_data(sheet_obj):
         lcolumn -= 1
         #skip a column when the max column is not the total column
         test = sheet_obj.cell(row = 1, column = lcolumn).value
+        if lcolumn < 4:     # in case the sheet has no data
+            return 'NDAT'
         if not test:
             lcolumn -= 1
-        elif not test.strip()[-1].isdigit():
+        if not test.strip()[-1].isdigit():
             lcolumn -= 1
     return lcolumn
 
@@ -83,6 +86,8 @@ def get_latest_dateID(xlsx, cursor):
         xlsx.active = xlsx.sheetnames.index(sheet)
         asheet = xlsx.active
         icolumn = locate_data(asheet)
+        if icolumn == 'NDAT':
+            continue
         dateIDs.append(get_dateID(asheet, icolumn, cursor))
     dateIDs.sort()
     return dateIDs[-1]
