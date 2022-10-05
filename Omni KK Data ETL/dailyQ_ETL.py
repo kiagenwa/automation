@@ -23,7 +23,7 @@ for file in ETL_files:
         xlsx.active = xlsx.sheetnames.index(sheet)
         asheet = xlsx.active
         icolumn = dQ.locate_data(asheet)
-        if icolumn == 'NDAT' or icolumn < 4:
+        if icolumn == 'NDAT':
             continue
         if (dateID > dQ.get_dateID(asheet, icolumn, cursor)):
             continue

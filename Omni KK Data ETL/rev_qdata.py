@@ -33,6 +33,8 @@ def main(args):
                 xlsx.active = xlsx.sheetnames.index(sheet)
                 asheet = xlsx.active
                 icolumn = dQ.locate_data(asheet)
+                if icolumn == 'NDAT':
+                    continue
                 datecode = asheet.cell(row = 1, column = icolumn).value[2:]
                 while datecode != upDate:
                     icolumn -= 1;
