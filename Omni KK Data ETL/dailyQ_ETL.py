@@ -34,6 +34,7 @@ for file in ETL_files:
         PDdata['PDoutput'] = dcolumn[3].value
         PDdata['modelID'] = dQ.model_ID(dcolumn[1].value)
         PDdata['pdtypeID'] = dQ.production_type(sheet, PDdata['modelID'])
+        print(PDdata)
         if (type(PDdata['modelID']) is str) or (type(PDdata['pdtypeID']) is str):
             dQ.logger(1, "model or PD type unrecognized.")
         cursor.execute("SELECT dateID, modelID, pdtypeID FROM dailyPD \

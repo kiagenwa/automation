@@ -28,7 +28,7 @@ def model_ID(model_abbr):
         "RC153":5,
         "RC265-04B":1,
         "RC305":4,
-        "RC2655102-02B":2
+        "RC2655101-02B":2
     }
     return switch.get(model_abbr, "AA")
 
@@ -36,9 +36,10 @@ def production_type(sheetname, modelID):
     """returns pdtype ID with sheet name"""
     if re.search(r"main",sheetname.lower()) or (re.search(r'smt|smd',sheetname.lower()) and modelID < 3):
         return 4
-    matched = re.search(r'smt|smd|ws|assembly|wave',sheetname.lower())
+    matched = re.search(r'smt|smd|ws|assembly|wave|assemble',sheetname.lower())
     switch={
         "assembly":3,
+        "assemble":3,
         "smt":1,
         "smd":1,
         "ws":2,
@@ -51,8 +52,11 @@ def locate_data(sheet_obj):
     lcolumn = sheet_obj.max_column - 1
     while not sheet_obj.cell(row = 3, column = lcolumn).value:
         lcolumn -= 1
+        #print(lcolumn, sheet_obj)
         #skip a column when the max column is not the total column
         test = sheet_obj.cell(row = 1, column = lcolumn).value
+        if not test:
+            continue
         if lcolumn < 4:     # in case the sheet has no data
             return 'NDAT'
         if not test:
